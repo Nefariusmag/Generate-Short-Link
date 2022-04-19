@@ -1,2 +1,2 @@
 # Generate-Short-Link
-This application will be generate short link for you
+This application will generate short link for you
