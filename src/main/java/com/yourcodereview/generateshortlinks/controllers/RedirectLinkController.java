@@ -1,6 +1,7 @@
 package com.yourcodereview.generateshortlinks.controllers;
 
-import com.yourcodereview.generateshortlinks.service.GetLinkService;
+import com.yourcodereview.generateshortlinks.service.LinkService;
+import com.yourcodereview.generateshortlinks.service.StatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/l/{some-short-name}")
 public class RedirectLinkController {
-    private final GetLinkService shortLinkService;
+    private final LinkService linkService;
+    private final StatsService statsService;
 
     @GetMapping
     public ResponseEntity<Void> redirectToOriginalLink(@PathVariable("some-short-name") String shortLink) {
-        String originalLink = shortLinkService.getOriginalLink(shortLink);
+        String originalLink = linkService.getOriginalLink(shortLink);
+        statsService.recordUseShortLink(shortLink);
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)
                 .header(HttpHeaders.LOCATION, originalLink)

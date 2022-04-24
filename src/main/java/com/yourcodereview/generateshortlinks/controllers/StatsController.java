@@ -11,19 +11,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * TODO
+ */
 @RestController
 @RequestMapping("/stats")
 @RequiredArgsConstructor
 public class StatsController {
     private final StatsService statsService;
 
+    /**
+     * TODO
+     *
+     * @param shortLink
+     * @return
+     */
     @GetMapping("/{some-short-name}")
     public ResponseStatsLink getStatsByShortLink(@PathVariable("some-short-name") String shortLink) {
         return statsService.getStatsByShortLink(shortLink);
     }
 
+    /**
+     * TODO
+     * Page starts from "0"
+     *
+     * @param page
+     * @param count
+     * @return
+     */
     @GetMapping
-    public List<ResponseStatsLink> getCoursesByPage(@RequestParam("page") int page, @RequestParam("count") int count) {
+    public List<ResponseStatsLink> getCoursesByPage(@RequestParam("page") long page, @RequestParam("count") int count) {
+        // TODO add check that count < 1 or count > 100 and send error message
+        if (count > 100) {
+            count = 100;
+        }
         return statsService.getStatsByPage(page, count);
     }
 }

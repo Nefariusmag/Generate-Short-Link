@@ -1,6 +1,5 @@
 package com.yourcodereview.generateshortlinks.service;
 
-import com.yourcodereview.generateshortlinks.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,22 +7,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetLinkService {
 
-    private final LinkRepository linkRepository;
+    private final LinkService linkService;
 
     public String generateShortLink(String originalLink) {
 
-        String shortLink = linkRepository.getShortLink(originalLink);
+        String shortLink = linkService.getShortLink(originalLink);
+        // TODO check it is not just ""
         if (shortLink != null) {
             return shortLink;
         }
 
         // TODO think about more interesting encoding
         shortLink = String.valueOf(System.currentTimeMillis() * 999);
-        linkRepository.saveLink(originalLink, shortLink);
+        linkService.saveLink(originalLink, shortLink);
         return shortLink;
-    }
-
-    public String getOriginalLink(String shortLink) {
-        return linkRepository.getOriginalLink(shortLink, false);
     }
 }

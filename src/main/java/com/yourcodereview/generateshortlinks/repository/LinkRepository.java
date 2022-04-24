@@ -1,34 +1,24 @@
 package com.yourcodereview.generateshortlinks.repository;
 
+import com.yourcodereview.generateshortlinks.dto.ResponseStatsLink;
+import com.yourcodereview.generateshortlinks.entity.LinkEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.List;
 
 @Repository
-public class LinkRepository {
+public interface LinkRepository extends JpaRepository<LinkEntity, Long> {
+    LinkEntity findByOriginalLink(String originalLink);
 
-    private final Map<String, String> links = new HashMap<>();
-    private final Map<String, Long> stats = new HashMap<>();
+    LinkEntity findByShortLink(String shortLink);
 
-    public String getShortLink(String originalLink) {
-        return links.get(originalLink);
-    }
+    @Query(value = "select rank from " +
+            "(select short_link, rank() over (order by count desc) rank from links) short_links_rank " +
+            "where short_link = ?1", nativeQuery = true)
+    long getRankByShortLink(String shortLink);
 
-    public String getOriginalLink(String shortLink, boolean fromStat) {
-        if (!fromStat) {
-            stats.merge(shortLink, 1L, Long::sum);
-        }
-        return links.get(shortLink);
-    }
-
-    public void saveLink(String originalLink, String shortLink) {
-        links.put(originalLink, shortLink);
-        links.put(shortLink, originalLink);
-    }
-
-    public Map<String, Long> getAllStatsLinks() {
-        return stats;
-    }
+    @Query(name = "getAllRank", nativeQuery = true)
+    List<ResponseStatsLink> getAllRank();
 }

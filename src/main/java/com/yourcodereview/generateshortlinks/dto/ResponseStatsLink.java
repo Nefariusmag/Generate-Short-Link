@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ResponseStatsLink {
     private String link;
     private String original;
-    private Long rank;
     private Long count;
+    private Long rank;
 }
