@@ -21,10 +21,10 @@ public class StatsController {
     private final StatsService statsService;
 
     /**
-     * TODO
+     * Request to get rank of some short links
      *
-     * @param shortLink
-     * @return
+     * @param shortLink some link in url request
+     * @return statistic with original link, short link, rank and count of using
      */
     @GetMapping("/{some-short-name}")
     public ResponseStatsLink getStatsByShortLink(@PathVariable("some-short-name") String shortLink) {
@@ -32,12 +32,12 @@ public class StatsController {
     }
 
     /**
-     * TODO
-     * Page starts from "0"
+     * Request to get page with statistic have some numbers elements
+     * Info: Page starts from "0"
      *
-     * @param page
-     * @param count
-     * @return
+     * @param page number page that will get in the response
+     * @param count number links on the page
+     * @return list with statistic about rank and count for links
      */
     @GetMapping
     public List<ResponseStatsLink> getCoursesByPage(@RequestParam("page") long page, @RequestParam("count") int count) {
@@ -45,6 +45,6 @@ public class StatsController {
         if (count > 100) {
             count = 100;
         }
-        return statsService.getStatsByPage(page, count);
+        return statsService.getStatsByPageAndCount(page, count);
     }
 }

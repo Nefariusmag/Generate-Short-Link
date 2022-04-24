@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShortlinksApplication {
+public class ShortLinksApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShortlinksApplication.class, args);
+        SpringApplication.run(ShortLinksApplication.class, args);
     }
 
 }

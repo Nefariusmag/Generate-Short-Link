@@ -5,17 +5,13 @@ import com.yourcodereview.generateshortlinks.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class LinkService {
 
+    private static final String PREFIX_SHORT_LINK = "/l/";
+
     @Autowired
     private LinkRepository linkRepository;
-
-    private final Map<String, String> links = new HashMap<>();
-    private final Map<String, Long> stats = new HashMap<>();
 
     public String getShortLink(String originalLink) {
         String shortLink = null;
@@ -30,14 +26,14 @@ public class LinkService {
     }
 
     public void saveLink(String originalLink, String shortLink) {
-        linkRepository.save(LinkEntity
-                .builder()
+        linkRepository.save(LinkEntity.builder()
                 .originalLink(originalLink)
                 .shortLink(shortLink)
-                .count(0L).build());
+                .count(0L)
+                .build());
     }
 
-    public Map<String, Long> getAllStatsLinks() {
-        return stats;
+    public String addPrefix(String link) {
+        return PREFIX_SHORT_LINK + link;
     }
 }
