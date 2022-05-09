@@ -1,19 +1,19 @@
 package com.yourcodereview.generateshortlinks.controllers;
 
+import com.google.gson.Gson;
 import com.yourcodereview.generateshortlinks.dto.ResponseStatsLink;
 import com.yourcodereview.generateshortlinks.service.StatsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 /**
  * TODO
  */
+@Slf4j
 @RestController
 @RequestMapping("/stats")
 @RequiredArgsConstructor
@@ -33,18 +33,37 @@ public class StatsController {
 
     /**
      * Request to get page with statistic have some numbers elements
-     * Info: Page starts from "0"
      *
      * @param page number page that will get in the response
      * @param count number links on the page
-     * @return list with statistic about rank and count for links
+     * @return JSON with list with statistic about rank and count for links
      */
     @GetMapping
-    public List<ResponseStatsLink> getCoursesByPage(@RequestParam("page") long page, @RequestParam("count") int count) {
-        // TODO add check that count < 1 or count > 100 and send error message
-        if (count > 100) {
-            count = 100;
+    public ResponseEntity<String> getCoursesByPage(@RequestParam("page") long page,
+                                                                    @RequestParam("count") long count) {
+        log.info("Get request from page: {} count: {}", page, count);
+        if (!isCorrectNumberCount(count)) {
+            log.error("Request has not acceptable count: {}", count);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Count can be only between 1 and 100");
         }
-        return statsService.getStatsByPageAndCount(page, count);
+        if (!isCorrectNumberPage(page)) {
+            log.error("Request has not acceptable page: {}", count);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Page starts from 1");
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new Gson().toJson(statsService.getStatsByPageAndCount(page, count)));
+    }
+
+    private boolean isCorrectNumberCount(long number) {
+        return number >= 1 && number <= 100;
+    }
+
+    private boolean isCorrectNumberPage(long number) {
+        return number >= 1;
     }
 }

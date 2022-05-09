@@ -16,8 +16,12 @@ public class RedirectLinkController {
     private final StatsService statsService;
 
     @GetMapping
-    public ResponseEntity<Void> redirectToOriginalLink(@PathVariable("some-short-name") String shortLink) {
+    public ResponseEntity<String> redirectToOriginalLink(@PathVariable("some-short-name") String shortLink) {
         String originalLink = linkService.getOriginalLink(shortLink);
+        if (originalLink == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Don't have an original link for " + shortLink);
+        }
         statsService.recordUseShortLink(shortLink);
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)

@@ -31,6 +31,9 @@ public class StatsService {
 
     public ResponseStatsLink getStatsByShortLink(String shortLink) {
         LinkEntity currentEntity = linkRepository.findByShortLink(shortLink);
+        if (currentEntity == null) {
+            return null;
+        }
         long rank = getRankByShortLink(shortLink);
         return ResponseStatsLink.builder()
                 .link(currentEntity.getShortLink())
@@ -44,10 +47,18 @@ public class StatsService {
         return linkRepository.getRankByShortLink(shortLink);
     }
 
-    public List<ResponseStatsLink> getStatsByPageAndCount(long page, int count) {
+    /**
+     * Info. (page - 1) - because for user will be understandable when start from 1,
+     * but for stream this start from 0
+     *
+     * @param page number elements that will skip
+     * @param count number elements that will get from list
+     * @return list with statistic use short link with filter
+     */
+    public List<ResponseStatsLink> getStatsByPageAndCount(long page, long count) {
         List<ResponseStatsLink> allLinksWithRank = linkRepository.getAllRank();
         return allLinksWithRank.stream()
-                .skip(page * count)
+                .skip((page - 1) * count)
                 .limit(count)
                 .collect(Collectors.toList());
     }

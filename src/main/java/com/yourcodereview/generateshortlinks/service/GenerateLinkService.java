@@ -17,9 +17,13 @@ public class GenerateLinkService {
             return shortLink;
         }
 
-        // TODO think about more interesting encoding
-        shortLink = String.valueOf(System.currentTimeMillis() * 999);
+        shortLink = generateNewUniqShortLink();
         linkService.saveLink(originalLink, shortLink);
         return shortLink;
+    }
+
+    // TODO think about more interesting encoding
+    private String generateNewUniqShortLink() {
+        return String.valueOf(System.currentTimeMillis() * 999);
     }
 }

@@ -2,6 +2,7 @@ package com.yourcodereview.generateshortlinks.service;
 
 import com.yourcodereview.generateshortlinks.entity.LinkEntity;
 import com.yourcodereview.generateshortlinks.repository.LinkRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class LinkService {
     @Autowired
     private LinkRepository linkRepository;
 
-    public String getShortLink(String originalLink) {
+    protected String getShortLink(String originalLink) {
         String shortLink = null;
         if (linkRepository.findByOriginalLink(originalLink) != null) {
             shortLink = linkRepository.findByOriginalLink(originalLink).getShortLink();
@@ -22,6 +23,9 @@ public class LinkService {
     }
 
     public String getOriginalLink(String shortLink) {
+        if (linkRepository.findByShortLink(shortLink) == null) {
+            return null;
+        }
         return linkRepository.findByShortLink(shortLink).getOriginalLink();
     }
 

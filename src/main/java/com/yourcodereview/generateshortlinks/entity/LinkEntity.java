@@ -37,10 +37,10 @@ public class LinkEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "short_link", unique = true)
+    @Column(name = "short_link", unique = true, length = 16)
     private String shortLink;
 
-    @Column(name = "original_link", unique = true)
+    @Column(name = "original_link", unique = true, length = 555)
     private String originalLink;
 
     @Column(name = "count")
