@@ -8,11 +8,12 @@
         <version>2.6.3</version>
         <relativePath/>
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>shortlinks</artifactId>
+
+    <groupId>com.yourcodereview</groupId>
+    <artifactId>generateshortlinks</artifactId>
     <version>1.0.0</version>
     <name>shortlinks</name>
-    <description>generateshortlinks</description>
+
     <properties>
         <java.version>11</java.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>

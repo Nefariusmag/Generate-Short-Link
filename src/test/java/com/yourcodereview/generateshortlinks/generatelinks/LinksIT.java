@@ -1,5 +1,6 @@
 package com.yourcodereview.generateshortlinks.generatelinks;
 
+import com.yourcodereview.generateshortlinks.BaseIT;
 import com.yourcodereview.generateshortlinks.service.GenerateLinkService;
 import com.yourcodereview.generateshortlinks.service.LinkService;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Slf4j
 class LinksIT extends BaseIT {
@@ -24,7 +27,7 @@ class LinksIT extends BaseIT {
         assertEquals(SHORT_LINK, generateLinkService.generateShortLink(ORIGINAL_LINK));
 
         String newShortLink = generateLinkService.generateShortLink(FRESH_ORIGINAL_LINK);
-        assertEquals(16, newShortLink.length());
+        assertEquals(7, newShortLink.length());
         assertNotEquals(SHORT_LINK, newShortLink);
     }
 

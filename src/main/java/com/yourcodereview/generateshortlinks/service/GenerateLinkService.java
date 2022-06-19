@@ -1,6 +1,7 @@
 package com.yourcodereview.generateshortlinks.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class GenerateLinkService {
 
     private final LinkService linkService;
+    private static final int LENGTH_ENCRYPTING = 7;
 
     public String generateShortLink(String originalLink) {
 
         String shortLink = linkService.getShortLink(originalLink);
-        // TODO check it is not just ""
         if (shortLink != null) {
             return shortLink;
         }
@@ -22,8 +23,7 @@ public class GenerateLinkService {
         return shortLink;
     }
 
-    // TODO think about more interesting encoding
     private String generateNewUniqShortLink() {
-        return String.valueOf(System.currentTimeMillis() * 999);
+        return RandomStringUtils.randomAlphabetic(LENGTH_ENCRYPTING);
     }
 }

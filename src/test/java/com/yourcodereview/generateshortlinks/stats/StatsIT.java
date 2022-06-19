@@ -1,17 +1,21 @@
 package com.yourcodereview.generateshortlinks.stats;
 
 import com.yourcodereview.generateshortlinks.dto.ResponseStatsLink;
-import com.yourcodereview.generateshortlinks.generatelinks.BaseIT;
+import com.yourcodereview.generateshortlinks.BaseIT;
 import com.yourcodereview.generateshortlinks.service.StatsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.*;
+import java.util.List;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 class StatsIT extends BaseIT {

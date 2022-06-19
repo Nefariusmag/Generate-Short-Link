@@ -5,11 +5,11 @@ import com.yourcodereview.generateshortlinks.dto.ResponseShortLink;
 import com.yourcodereview.generateshortlinks.service.GenerateLinkService;
 import com.yourcodereview.generateshortlinks.service.LinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-/**
- * Controller to get all requests to /generate url
- */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/generate")
@@ -18,7 +18,7 @@ public class GenerateLinkController {
     private final LinkService linkService;
 
     /**
-     * Get POST request with body contains link that want to make short return short link
+     * POST request with body contains link that want to make short return short link.
      *
      * @param requestOriginalLink body with JSON
      *                            {
@@ -26,7 +26,7 @@ public class GenerateLinkController {
      *                            }
      * @return JSON with short link
      * {
-     *     "link": "/l/1649163001614570"
+     *     "link": "/l/adlSFNJ"
      * }
      */
     @PostMapping

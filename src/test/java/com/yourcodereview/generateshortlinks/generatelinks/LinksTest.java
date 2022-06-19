@@ -4,10 +4,10 @@ import com.yourcodereview.generateshortlinks.service.LinkService;
 import org.junit.jupiter.api.Test;
 
 
-import static com.yourcodereview.generateshortlinks.generatelinks.BaseIT.SHORT_LINK;
+import static com.yourcodereview.generateshortlinks.BaseIT.SHORT_LINK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LinksTests {
+class LinksTest {
 
     @Test
     void addPrefixTest(){

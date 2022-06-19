@@ -45,5 +45,4 @@ public class LinkEntity {
 
     @Column(name = "count")
     private Long count;
-
 }
