@@ -163,11 +163,6 @@
                                 <ports>
                                     <port>${postgres.db.port}</port>
                                 </ports>
-<!--                                <volumes>-->
-<!--                                    <bind>-->
-<!--                                        <volume>${project.build.testResources[0].directory}/db/initial_data.sql:/docker-entrypoint-initdb.d/initial_data.sql</volume>-->
-<!--                                    </bind>-->
-<!--                                </volumes>-->
                                 <wait>
                                     <time>60000</time>
                                     <log>PostgreSQL init process complete</log>
