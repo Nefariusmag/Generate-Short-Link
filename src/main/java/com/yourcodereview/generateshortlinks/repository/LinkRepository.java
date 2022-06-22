@@ -11,12 +11,9 @@ import java.util.List;
 @Repository
 public interface LinkRepository extends JpaRepository<LinkEntity, Long> {
     LinkEntity findByOriginalLink(String originalLink);
-
     LinkEntity findByShortLink(String shortLink);
 
-    @Query(value = "select rank from " +
-            "(select short_link, rank() over (order by count desc) rank from links) short_links_rank " +
-            "where short_link = ?1", nativeQuery = true)
+    @Query(name = "getRank", nativeQuery = true)
     long getRankByShortLink(String shortLink);
 
     @Query(name = "getAllRank", nativeQuery = true)

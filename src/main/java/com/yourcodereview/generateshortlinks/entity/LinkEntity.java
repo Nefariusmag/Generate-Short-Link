@@ -11,7 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "links")
-
+@NamedNativeQuery(
+        name = "getRank",
+        query = "select rank from " +
+                "(select short_link, rank() over (order by count desc) rank from links) short_links_rank " +
+                "where short_link = ?1"
+)
 @NamedNativeQuery(
         name = "getAllRank",
         query = "select * from " +

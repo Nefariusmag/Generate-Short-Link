@@ -2,7 +2,6 @@ package com.yourcodereview.generateshortlinks.service;
 
 import com.yourcodereview.generateshortlinks.entity.LinkEntity;
 import com.yourcodereview.generateshortlinks.repository.LinkRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
