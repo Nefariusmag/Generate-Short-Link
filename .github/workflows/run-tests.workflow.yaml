@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -12,5 +12,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - uses: docker://continuumio/anaconda3:2019.07
       - name: Build with Maven
-        run: mvn package
+        run: mvn verify -D DOCKER_ENGINE=127.0.0.1
