@@ -7,7 +7,7 @@ This application will generate short link for you
 1. Install Java 11 or higher, Maven 3 and Docker
 2. Build the project:
 ```shell
-mvn clean, verify
+mvn clean verify
 ```
 
 ## How to start

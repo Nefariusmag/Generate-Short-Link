@@ -5,11 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "links")
 @NamedNativeQuery(
         name = "getRank",
